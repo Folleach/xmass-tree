@@ -1,0 +1,21 @@
+{
+	"name": "Debian",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	"customizations": {
+		"vscode": {
+			"settings": {
+			},
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"mhutchie.git-graph"
+			]
+		}
+	},
+
+	//"runArgs": [
+	//	"--device=/dev/ttyUSB0"
+	//]
+}
