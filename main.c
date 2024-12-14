@@ -1,19 +1,50 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "common.c"
+#include "serial.c"
 
 #define LED_PIN PD5
-#define NUM_LEDS 10
+#define NUM_LEDS 120
 
-#define INIT_STEP_DELTA 15;
-#define STEP_DELTA 1;
+#define INIT_STEP_DELTA 3;
+#define STEP_DELTA 2;
 
 rgb leds[NUM_LEDS];
 hsv hsv_leds[NUM_LEDS];
 
-int main()
+void read_rgb_array(uint8_t* buffer, uint16_t buf_size, rgb* colors, uint16_t rgb_size)
 {
-	DDRB |= 1 << LED_PIN;
+	uint16_t rgb_i = 0;
+	for (uint16_t i = 0; (i + 2) < buf_size && rgb_i < rgb_size; i += 3)
+	{
+		colors[rgb_i].r = buffer[i];
+		colors[rgb_i].g = buffer[i + 1];
+		colors[rgb_i].b = buffer[i + 2];
+		rgb_i++;
+	}
+}
+
+void serial_impl()
+{
+	init_uart();
+	for (;;)
+	{
+		int32_t value = read_serial_int32_t();
+		if (value > NUM_LEDS * 3)
+		{
+			write_serial_buffer("err: too large\n", 15);
+			continue;
+		}
+		uint8_t buffer[value];
+		read_serial_buffer(&buffer, value);
+		read_rgb_array(&buffer, value, &leds, NUM_LEDS);
+		send_rgb_array(&leds, NUM_LEDS, LED_PIN);
+		write_serial_buffer("ok\n", 3);
+	}
+}
+
+void stand_alone_impl()
+{
 	hsv base = { .h = 0, .s = 1, .v = 0.02 };
 
 	for (uint8_t i = 0; i < NUM_LEDS; i++)
@@ -44,5 +75,13 @@ int main()
 
 		_delay_ms(10);
 	}
+}
+
+int main()
+{
+	DDRB |= 1 << LED_PIN;
+
+	stand_alone_impl();
+
 	return 0;
 }
