@@ -1,0 +1,9 @@
+[package]
+name = "led-capture"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.8.5"
+serialport = "4.6.1"
+v4l = "0.14.0"

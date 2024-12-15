@@ -14,8 +14,12 @@
 			]
 		}
 	},
+	"features": {
+		"ghcr.io/devcontainers/features/rust:1": {}
+	},
 
-	//"runArgs": [
-	//	"--device=/dev/ttyUSB0"
-	//]
+	// "runArgs": [
+	// 	"--device=/dev/ttyUSB0", // atmega
+	// 	"--device=/dev/video2:/dev/video0", // obs virtual camera or something else
+	// ]
 }

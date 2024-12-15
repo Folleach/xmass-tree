@@ -4,12 +4,17 @@ The small project on c with lights for x-mass tree ^_^
 - light stroke (ws2812)
 - atmega328p (arduino uno)
 
+**Projects**
+
+- [src/firmware](/src/firmware/) - firmware for atmega328p.
+- [src/led-capture](/src/led-capture/) - software for capturing pixels from video devices.
+
 **To get started**
 1. Open the repository in any IDE that supports dev containers.
-2. [Specify](/.devcontainer/devcontainer.json#L19) your `/dev/ttyUSB0` (atmega328p) the correct one yourself.
+2. [Specify](/.devcontainer/devcontainer.json#L22) your `/dev/ttyUSB0` (atmega328p) the correct one yourself.
 3. Run
    ```bash
-   make flash
+   cd src/firmware/ && make flash
    ```
 4. Be satisfied!
 

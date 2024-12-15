@@ -77,6 +77,20 @@ void stand_alone_impl()
 	}
 }
 
+void constant_impl()
+{
+	rgb rgb = { .r = 10, .g = 10, .b = 10 };
+	for (int i = 0; i < NUM_LEDS; i++) {
+		leds[i] = rgb;
+	}
+	while (1)
+	{
+		send_rgb_array(leds, NUM_LEDS, LED_PIN);
+		_delay_ms(1000);
+	}
+	
+}
+
 int main()
 {
 	DDRB |= 1 << LED_PIN;

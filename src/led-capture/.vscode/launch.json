@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'led-capture'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=led-capture",
+                    "--package=led-capture"
+                ],
+                "filter": {
+                    "name": "led-capture",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'led-capture'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=led-capture",
+                    "--package=led-capture"
+                ],
+                "filter": {
+                    "name": "led-capture",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
